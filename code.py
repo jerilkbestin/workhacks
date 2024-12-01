@@ -1,40 +1,47 @@
-# from googlesearch import search
-
-
-# query="aws-certified-data-engineer-associate-dea-c01 discussion question {}"
-
-# with open("examtopics_aws_deaC01_qs.txt","w") as file:
-#     for i in range(1,153):
-#         top_result=list(search(query.format(i),sleep_interval=200,num_results=1))[0]
-#         if top_result:
-#             print(i,top_result)
-#             file.write(top_result+'\n')
-#         else:
-#             print(i,"No result")
-#             continue
-
 from googlesearch import search
 import time
 import random
 
-query = "aws-certified-data-engineer-associate-dea-c01 discussion question {}"
+# Define the query template
+query = "examtopics.com exam-az-500-topic-{}-question-{}-discussion"
 
-with open("aws_dataEngineering_2.txt", "w") as file:
-    for i in range(1, 192):
+# Enter the topic number manually
+topic = int(input("Enter the topic number: "))
+max_questions = int(input("Enter the maximum number of questions: "))
+
+# Open a file to write results
+with open("az-500-questions.txt", "w") as file:
+    topic_has_results = False  # Flag to track if the topic has any results
+
+    for question in range(1, max_questions + 1):  # Loop through the specified number of questions
         try:
-            # Perform Google search and retrieve the top result
-            top_results = list(search(query.format(i), stop=1))
-            if top_results:
-                top_result = top_results[0]
-                print(i, top_result)
-                file.write(top_result + '\n')
+            # Perform Google search for the current topic and question
+            formatted_query = query.format(topic, question)
+            top_results = list(search(formatted_query, num_results=10))
+
+            # Check if any result matches the expected format
+            expected_format = f"exam-az-500-topic-{topic}-question-{question}-discussion"
+            top_selected_result = None
+            for result in top_results:
+                if expected_format in result:
+                    top_selected_result = result
+                    break
+
+            if top_selected_result:
+                # If a matching result is found, write it to the file
+                print(f"Topic {topic}, Question {question}: {top_selected_result}")
+                file.write(top_selected_result + '\n')
+                topic_has_results = True  # Indicate that this topic has results
             else:
-                print(i, "No result")
-            
+                print(f"Topic {topic}, Question {question}: No result")
+
             # Wait a random amount of time to avoid detection
-            time.sleep(random.uniform(3, 6))  # Random sleep between 3 and 6 seconds
+            time.sleep(random.uniform(15, 30))
         except Exception as e:
-            print(f"Error occurred for question {i}: {e}")
+            print(f"Error occurred for Topic {topic}, Question {question}: {e}")
             continue
 
-
+    if not topic_has_results:
+        print(f"No results for Topic {topic}.")
+    else:
+        print(f"Search completed for Topic {topic}.")
