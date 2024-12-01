@@ -13,7 +13,7 @@ max_questions = int(input("Enter the maximum number of questions: "))
 # Open a file to write results
 with open(f"az-500-questions-topic-{topic}.txt", "w") as file:
     topic_has_results = False  # Flag to track if the topic has any results
-
+    j=0
     for question in range(question_start, max_questions + 1):  # Loop through the specified number of questions
         try:
             # Perform Google search for the current topic and question
@@ -39,7 +39,9 @@ with open(f"az-500-questions-topic-{topic}.txt", "w") as file:
             # Wait a random amount of time to avoid detection
             time.sleep(random.uniform(15, 30))
         except Exception as e:
+            j++
             print(f"Error occurred for Topic {topic}, Question {question}: {e}")
+            time.sleep(300*j)
             continue
 
     if not topic_has_results:
