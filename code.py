@@ -39,7 +39,7 @@ with open(f"az-500-questions-topic-{topic}.txt", "w") as file:
             # Wait a random amount of time to avoid detection
             time.sleep(random.uniform(15, 30))
         except Exception as e:
-            j++
+            j+=1
             print(f"Error occurred for Topic {topic}, Question {question}: {e}")
             time.sleep(300*j)
             continue
