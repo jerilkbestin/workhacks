@@ -41,7 +41,7 @@ with open(f"az-500-questions-topic-{topic}.txt", "w") as file:
         except Exception as e:
             j+=1
             print(f"Error occurred for Topic {topic}, Question {question}: {e}")
-            time.sleep(300*j)
+            time.sleep(500*j)
             continue
 
     if not topic_has_results:
