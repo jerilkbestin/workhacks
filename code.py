@@ -10,7 +10,7 @@ topic = int(input("Enter the topic number: "))
 max_questions = int(input("Enter the maximum number of questions: "))
 
 # Open a file to write results
-with open("az-500-questions.txt", "w") as file:
+with open(f"az-500-questions-topic-{topic}.txt", "w") as file:
     topic_has_results = False  # Flag to track if the topic has any results
 
     for question in range(1, max_questions + 1):  # Loop through the specified number of questions
